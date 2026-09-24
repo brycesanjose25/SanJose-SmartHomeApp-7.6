@@ -50,7 +50,6 @@ export default function DevicesScreen() {
           <Button title="Retry" onPress={() => void retryDevices()} />
         </View>
       )}
-
       {devices.map((device) => (
 
         <View
@@ -177,5 +176,4 @@ const styles = StyleSheet.create({
   feedback: {
     marginBottom: 15,
   },
-
 });

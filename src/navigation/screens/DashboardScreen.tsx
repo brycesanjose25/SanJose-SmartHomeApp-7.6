@@ -46,7 +46,6 @@ export default function DashboardScreen() {
                     <Button title="Retry" onPress={() => void retrySensors()} />
                 </View>
             )}
-
             <View style={styles.sensorRow}>
 
                 <View style={styles.sensorCard}>
@@ -100,7 +99,6 @@ export default function DashboardScreen() {
             {deviceError && (
                 <Text style={styles.errorText}>{deviceError}</Text>
             )}
-
             {/* <View style={styles.deviceCard}>
 
                 <View style={styles.deviceInfo}>

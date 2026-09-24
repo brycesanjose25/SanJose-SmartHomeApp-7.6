@@ -18,7 +18,6 @@ export default function SensorsScreen() {
     gatewayError,
     retrySensors,
   } = useIoT();
-
   return (
     <ScrollView style={styles.container}>
 
@@ -45,7 +44,6 @@ export default function SensorsScreen() {
           <Button title="Retry" onPress={() => void retrySensors()} />
         </View>
       )}
-
       {/* Temperature */}
       <View style={styles.sensorCard}>
 
@@ -187,5 +185,4 @@ const styles = StyleSheet.create({
   feedback: {
     marginBottom: 15,
   },
-
 });
