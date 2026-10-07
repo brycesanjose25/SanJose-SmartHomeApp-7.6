@@ -15,7 +15,7 @@ export default function SensorsScreen() {
     sensors,
     sensorsLoading,
     sensorError,
-    gatewayError,
+    storageError,
     retrySensors,
   } = useIoT();
   return (
@@ -30,8 +30,8 @@ export default function SensorsScreen() {
         Monitor your environment
       </Text>
 
-      {gatewayError && (
-        <Text style={styles.errorText}>{gatewayError}</Text>
+      {storageError && (
+        <Text style={styles.errorText}>{storageError}</Text>
       )}
 
       {sensorsLoading && (

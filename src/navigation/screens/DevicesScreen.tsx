@@ -19,7 +19,7 @@ export default function DevicesScreen() {
     devices,
     devicesLoading,
     deviceError,
-    gatewayError,
+    storageError,
     updatingDeviceId,
     retryDevices,
     toggleDevice,
@@ -36,8 +36,8 @@ export default function DevicesScreen() {
         Control your connected devices
       </Text>
 
-      {gatewayError && (
-        <Text style={styles.errorText}>{gatewayError}</Text>
+      {storageError && (
+        <Text style={styles.errorText}>{storageError}</Text>
       )}
 
       {devicesLoading && (

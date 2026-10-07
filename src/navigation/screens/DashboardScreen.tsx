@@ -10,7 +10,7 @@ export default function DashboardScreen() {
     sensorsLoading,
     sensorError,
     deviceError,
-    gatewayError,
+    storageError,
     updatingDeviceId,
     retrySensors,
     toggleDevice,
@@ -21,7 +21,7 @@ export default function DashboardScreen() {
       <Text style={styles.greeting}>Good evening</Text>
       <Text style={styles.title}>IoT Dashboard</Text>
 
-      {gatewayError && <Text style={styles.errorText}>{gatewayError}</Text>}
+      {storageError && <Text style={styles.errorText}>{storageError}</Text>}
 
       {sensorError && (
         <View style={styles.feedback}>
