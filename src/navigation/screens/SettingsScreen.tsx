@@ -8,12 +8,17 @@ import {
 } from 'react-native';
 
 import { Ionicons } from '@expo/vector-icons';
+import { useIoT } from '../../context/IoTContext';
 
 export default function SettingsScreen() {
-
   const [notifications, setNotifications] = useState(true);
   const [autoConnect, setAutoConnect] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
+  const {
+    sensorsLoading,
+    devicesLoading,
+    storageError,
+  } = useIoT();
 
   return (
     <ScrollView style={styles.container}>
@@ -137,9 +142,7 @@ export default function SettingsScreen() {
 
       {/* Connection */}
 
-      <Text style={styles.sectionTitle}>
-        Connection
-      </Text>
+      <Text style={styles.sectionTitle}>Storage</Text>
 
 
       <View style={styles.connectionCard}>
@@ -147,18 +150,22 @@ export default function SettingsScreen() {
         <View style={styles.connectionInfo}>
 
           <Ionicons
-            name="cloud-done-outline"
+            name="server-outline"
             size={30}
           />
 
           <View>
 
             <Text style={styles.connectionTitle}>
-              IoT Gateway
+              Local Database
             </Text>
 
             <Text style={styles.connectionStatus}>
-              Connected
+              {storageError
+                ? 'Unavailable'
+                : sensorsLoading || devicesLoading
+                  ? 'Initializing...'
+                  : 'Ready'}
             </Text>
 
           </View>
