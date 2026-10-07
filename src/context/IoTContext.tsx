@@ -18,7 +18,7 @@ type IoTContextType = {
 	devicesLoading: boolean;
 	sensorError: string | null;
 	deviceError: string | null;
-	gatewayError: string | null;
+	storageError: string | null;
 	updatingDeviceId: number | null;
 	retrySensors: () => Promise<void>;
 	retryDevices: () => Promise<void>;
@@ -34,28 +34,31 @@ export function IoTProvider({
 }) {
 	const [devices, setDevices] = useState<Device[]>([]);
 	const [sensors, setSensors] = useState<SensorData>({
+		id: 0,
 		temperature: 0,
 		humidity: 0,
 		lightLevel: 0,
+		deviceId: null,
+		recordAt: '',
 	});
 	const [sensorsLoading, setSensorsLoading] = useState(true);
 	const [devicesLoading, setDevicesLoading] = useState(true);
 	const [sensorError, setSensorError] = useState<string | null>(null);
 	const [deviceError, setDeviceError] = useState<string | null>(null);
-	const [gatewayError, setGatewayError] = useState<string | null>(null);
+	const [storageError, setStorageError] = useState<string | null>(null);
 	const [updatingDeviceId, setUpdatingDeviceId] = useState<number | null>(null);
 
 	const retrySensors = async (): Promise<void> => {
 		setSensorsLoading(true);
 		setSensorError(null);
-		setGatewayError(null);
+		setStorageError(null);
 
 		try {
 			setSensors(await getSensorData());
 		} catch (error) {
 			console.error('Unable to retrieve sensor data.', error);
 			setSensorError('Unable to retrieve sensor data.');
-			setGatewayError('IoT Gateway is disconnected.');
+			setStorageError('Local database is unavailable.');
 		} finally {
 			setSensorsLoading(false);
 		}
@@ -64,14 +67,14 @@ export function IoTProvider({
 	const retryDevices = async (): Promise<void> => {
 		setDevicesLoading(true);
 		setDeviceError(null);
-		setGatewayError(null);
+		setStorageError(null);
 
 		try {
 			setDevices(await getDevices());
 		} catch (error) {
 			console.error('Unable to retrieve devices.', error);
 			setDeviceError('Unable to retrieve devices.');
-			setGatewayError('IoT Gateway is disconnected.');
+			setStorageError('Local database is unavailable.');
 		} finally {
 			setDevicesLoading(false);
 		}
@@ -90,7 +93,7 @@ export function IoTProvider({
 
 		setUpdatingDeviceId(id);
 		setDeviceError(null);
-		setGatewayError(null);
+		setStorageError(null);
 
 		try {
 			const updatedDevice = await updateDeviceStatus(id, value);
@@ -103,7 +106,7 @@ export function IoTProvider({
 		} catch (error) {
 			console.error('Unable to update device status.', error);
 			setDeviceError(`Unable to update ${device?.name ?? 'device'}.`);
-			setGatewayError('IoT Gateway is disconnected.');
+			setStorageError('Local database is unavailable.');
 		} finally {
 			setUpdatingDeviceId(null);
 		}
@@ -118,7 +121,7 @@ export function IoTProvider({
 				devicesLoading,
 				sensorError,
 				deviceError,
-				gatewayError,
+				storageError,
 				updatingDeviceId,
 				retrySensors,
 				retryDevices,
