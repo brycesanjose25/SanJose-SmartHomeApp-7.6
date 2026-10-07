@@ -9,7 +9,10 @@ export type Device = {
 };
 
 export type SensorData = {
+	id: number;
 	temperature: number;
 	humidity: number;
 	lightLevel: number;
+	deviceId: number | null;
+	recordAt: string;
 };
